@@ -1,5 +1,21 @@
-<h2>Ten Most Recent Tweets</h2>
+<div class='tweets' data-user="<%=@user.username%>">
+  <h3>Loading Fresh Tweets</h3>
+  <img src="/images/ajax_loader.gif">
+</div>
 
-<% @tweets.each do |tweet|%>
-  <%= tweet.text %> <br> <br>
-<% end %>
+<script>
+(function(){
+  $(document).ready(function() {
+    $.ajax({
+      method: 'post',
+      url: '/get_tweets',
+      data: {user: $('.tweets').data('user')}
+    })
+    .done(function(response){
+      $('.tweets').empty();
+      $('.tweets').append(response);
+    });
+
+  });
+})();
+</script>

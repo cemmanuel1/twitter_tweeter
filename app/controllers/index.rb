@@ -12,23 +12,32 @@ end
 
 get '/:twitter' do |twitter|
   @user = TwitterUser.find_by_username(twitter)
+  erb :show_tweets
+end
+
+post '/get_tweets' do 
+  @user = TwitterUser.find_by_username(params[:user])
   if @user.tweets.empty? || @user.tweets.stale?
+    p "IM MAKING NEW TWEETS"
     @user.tweets.delete_all
     @user.fetch_tweets!
   end
   @tweets = @user.tweets
-  
-  erb :show_tweets
+  erb :_tweet_partial, :layout => false
 end
 
 
-class Array
-  def stale?
-    times = self.map(&:time).map(&:to_i)
-    future = DateTime.now.to_i + ((times.first.to_i - times.last.to_i)/ self.length)
-    DateTime.strptime((DateTime.now.to_i).to_s, '%s') > DateTime.strptime(future.to_s, '%s')
-  end
-end
+# class Array
+#   def stale?
+#     times = self.map(&:time).map(&:to_i)
+#     future = times.first + ((times.first.to_i - times.last.to_i)/ self.length)
+#     p future
+#     p DateTime.strptime(future.to_s, '%s')
+#     p DateTime.strptime((DateTime.now.to_i).to_s, '%s')
+
+#     DateTime.strptime((DateTime.now.to_i).to_s, '%s') > DateTime.strptime(future.to_s, '%s')
+#   end
+# end
 
 
 
