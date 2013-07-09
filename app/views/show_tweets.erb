@@ -3,6 +3,16 @@
   <img src="/images/ajax_loader.gif">
 </div>
 
+<div class='sidebar'>
+<h2>Send a Tweet</h2>
+
+<form id='post_tweet' action="/post_tweet" method='post'>
+  <input id='tweet_input' type="text" name="tweet_text">
+  <input type="submit" value='Send Tweet'>
+
+</form>
+</div>
+
 <script>
 (function(){
   $(document).ready(function() {
@@ -16,6 +26,15 @@
       $('.tweets').append(response);
     });
 
+    $('#post_tweet').on('submit', function(e){
+      e.preventDefault();
+      console.log('submitting')
+      $.ajax({
+        method: 'post',
+        url:'/post_tweets',
+        data: $('#post_tweet').serialize()
+      });
+    });
   });
 })();
 </script>

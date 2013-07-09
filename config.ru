@@ -12,17 +12,6 @@ configure do
   set :views, File.join(Sinatra::Application.root, "app", "views")
 end
 
-YOUR_CONSUMER_KEY = '4lEg9YVMAFA2ivv0TypkhQ'
-YOUR_CONSUMER_SECRET = 'NBKea5y7Wv5iLDBqSxTy3hsraMDBB64ptyKO74JE08'
-YOUR_OAUTH_TOKEN = '897853014-TNQqRmL3mUAV2gS5y8GCwOqKxMDtfcFdtLDFrxcA'
-YOUR_OAUTH_TOKEN_SECRET = 'OPNhWp9gm17GjxH4p4C2gD9jdUSEcbEPiGEy8VZX8'
-
-Twitter.configure do |config|
-  config.consumer_key = YOUR_CONSUMER_KEY
-  config.consumer_secret = YOUR_CONSUMER_SECRET
-  config.oauth_token = YOUR_OAUTH_TOKEN
-  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
-end
 
 run Sinatra::Application
 

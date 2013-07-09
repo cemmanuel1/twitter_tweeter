@@ -22,6 +22,8 @@ require 'erb'
 require 'bcrypt'
 require 'twitter'
 
+
+
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
@@ -33,4 +35,17 @@ Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
 
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
+
+if File.exists?(APP_ROOT.join('config','setup_twitter_environment.rb'))
+  require APP_ROOT.join('config', 'setup_twitter_environment.rb')
+end
+
+
+Twitter.configure do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+  config.oauth_token = YOUR_OAUTH_TOKEN
+  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+end
+
 

@@ -15,6 +15,10 @@ get '/:twitter' do |twitter|
   erb :show_tweets
 end
 
+post '/post_tweets' do
+ Twitter.update(params[:tweet_text])
+end
+
 post '/get_tweets' do 
   @user = TwitterUser.find_by_username(params[:user])
   if @user.tweets.empty? || @user.tweets.stale?
